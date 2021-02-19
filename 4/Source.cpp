@@ -22,7 +22,7 @@ public:
 			trees[i] = new Node;
 			symbols[i] = trees[i];
 			cout << "Symbol: "; trees[i]->c = c; cout << trees[i]->c << endl;
-			cout << "Prob: "; trees[i]->p = p; cout << trees[i]->p << endl;
+			cout << "Weight: "; trees[i]->p = p; cout << trees[i]->p << endl;
 			cout << endl;
 			trees[i]->left = 0;
 			trees[i]->right = 0;
@@ -82,7 +82,7 @@ void Show(string *Catch) {
 
 };
 
-void main() {
+int main() {
 	//START COUNT
 	ifstream INPUT;
 	string STRCOPY;
@@ -91,15 +91,16 @@ void main() {
 	int i = 0;
 	int count = 0;
 	INPUT.open("INPUT.txt");
+	if(!INPUT.is_open()){cout << "Bad" << endl;}
 	while (!INPUT.eof()) { getline(INPUT, tmp123); STRCOPY += tmp123; }
 	for (int i = 0; i < 256; i++) { Herz[i] = 0; }
 	//cout << STRCOPY << endl;DEBUG
 	//cout << STRCOPY.length() << endl;DEBUG
-	while (i != (tmp123.length())) { Herz[int(tmp123[i])]++; i++; }i = 0;//Узнаем колличество битовых вхождений
+	while (i != (tmp123.length())) { Herz[int(tmp123[i])]++; i++; }i = 0;
 	for (int i = 0; i < 256; i++) { if (Herz[i] != 0) { count++; } }
 	Huffman tree(count);
 	int j = 0;
-	for (int i = 0; i < 256; i++) { if (Herz[i] != 0) { double temp = double(Herz[i]) / double(STRCOPY.length()); cout << char(i) << ":" << temp << endl; tree.read(char(i), temp, j++);}  }
+	for (int i = 0; i < 256; i++) { if (Herz[i] != 0) { double temp = double(Herz[i]) / double(STRCOPY.length()); cout << char(i) << ": " << Herz[i]  << " of " << STRCOPY.length() << endl; tree.read(char(i), temp, j++);}  }
 	//END COUNT
 	tree.makeTree(count);
 	cout << endl;
@@ -113,5 +114,6 @@ void main() {
 	OUTPUT << Catch;
 	OUTPUT.close();
 	system("pause");
+	return 0;
 };
 		
